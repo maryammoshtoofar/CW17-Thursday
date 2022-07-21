@@ -3,21 +3,40 @@ import Comments from "../Comments";
 import "./index.css";
 
 class Content extends Component {
-    state = {  } 
+    state = { 
+      comments:[]
+     } 
+    componentDidMount() {
+      fetch(`http://localhost:3001/comments?post-id=${this.props.post[0].id}`).then((data) => {
+        data.json().then(result=>{this.setState({comments:result},()=> console.log(this.state.comments))})
+      });
+      
+    }
+    componentDidUpdate(prevProps) {
+      
+     if (prevProps.post[0].id!==this.props.post[0].id )
+      fetch(`http://localhost:3001/comments?post-id=${this.props.post[0].id}`).then((data) => {
+        data.json().then(result=>{this.setState({comments:result},()=> console.log(this.state.comments))})
+      })
+      
+      
+    }
+
     render() { 
+    
+      const {title,body,image,id}=this.props.post[0]
         return (
           <>
             <div className="main">
                 <div className="card">
-                    <img src="./image/1.jpg" alt="imgContent" />
-                    <h1>Down and Out</h1>
+                    <img src={`./image/${image}`} alt="imgContent" />
+                    <h1>{title}</h1>
                 </div>
 
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit
-                eius numquam deserunt aliquid laudantium voluptates est
+                {body}
               </p>
-              <Comments />
+              <Comments comments={this.state.comments} />
             </div>
           </>
         );
