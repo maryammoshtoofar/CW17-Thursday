@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 class SideBar extends Component {
-    state = {  } 
+handleClick=(id)=>{
+this.props.selectPost(id)
+}
     render() { 
         return (
           <ul>
-            <li>gare</li>
-            <li>aergn</li>
-            <li>WERFEW</li>
-            <li>THTRH</li>
+            {/* for showing sidebar items from dbjson */}
+            {this.props.posts.map((post) => (
+              <li key={post.id} onClick={()=>this.handleClick(post.id)}>
+                {post.title}
+              </li>
+            ))}
           </ul>
         );
     }
