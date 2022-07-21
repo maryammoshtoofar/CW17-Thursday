@@ -1,14 +1,17 @@
 import React, { Component } from "react";
+import "./App.css"
+import SideBar from "./components/SideBar";
+import Content from "./components/Content";
+
 
 class App extends Component {
-  constructor() {
-    super();
-    
-  }
+
   render() {
     return (
-      <>
-      </>
+      <div className="wrapper">
+        <SideBar />
+        <Content />
+      </div>
     );
   }
 }
